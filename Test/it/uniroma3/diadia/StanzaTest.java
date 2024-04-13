@@ -7,8 +7,6 @@ import org.junit.Test;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-
-
 public class StanzaTest {
 	private Stanza stanza1;
 	private Attrezzo osso;
@@ -26,6 +24,7 @@ public class StanzaTest {
 		Attrezzo[] elenco = new Attrezzo[attrezzo.length];
 		for(int i = 0; i < attrezzo.length; i++)
 			elenco[i] = new Attrezzo(attrezzo[i],i);
+
 		return elenco;
 	}
 
@@ -162,5 +161,5 @@ public class StanzaTest {
 			this.stanza1.addAttrezzo(elencoAttrezzi[i]);
 		assertFalse(this.stanza1.isEmpty());
 	}
-
+	
 }

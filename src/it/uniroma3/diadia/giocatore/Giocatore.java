@@ -11,7 +11,8 @@ public class Giocatore {
 	public Giocatore() {
 		this.borsa = new Borsa();
 	}
-	//CFU
+	
+	// CFU
 	/**
 	 * @return the cfu
 	 */
@@ -34,13 +35,14 @@ public class Giocatore {
 		this.cfu++;
 	}
 	
-	//NOME
+	// NOME
 	/**
 	 * @return the name
 	 */
 	public String getNome() {
 		return nome;
 	}
+	
 	/**
 	 * @param nome the nome to set
 	 */
@@ -48,13 +50,14 @@ public class Giocatore {
 		this.nome = nome;
 	}
 	
-	//BORSA
+	// BORSA
 	/**
 	 * @return the inventario
 	 */
 	public Borsa getBorsa() {
 		return borsa;
 	}
+	
 	/**
 	 * @param inventario the inventario to set
 	 */

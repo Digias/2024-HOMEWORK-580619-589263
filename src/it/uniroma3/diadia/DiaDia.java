@@ -1,6 +1,5 @@
 package it.uniroma3.diadia;
 
-
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
@@ -45,14 +44,14 @@ public class DiaDia {
 	}
 
 	public void gioca() {		
-		this.console.mostraMessaggio("Quale è il tuo nome? \n");
+		this.console.mostraMessaggio("Inserisci il tuo nome? \n");
 
 		String nome; //nome da attribuire al giocatore
 		do		
-			nome = this.console.leggiRiga();//leggo il nome del giocatore
+			nome = this.console.leggiRiga(); //leggo il nome del giocatore
 		while ((nome == null));
 
-		this.partita.getGiocatore().setNome(nome);// Set del nome del giocatore
+		this.partita.getGiocatore().setNome(nome); // Set del nome del giocatore
 
 		this.console.mostraMessaggio("Benvenuto " + this.partita.getGiocatore().getNome() + "\n");
 		this.console.mostraMessaggio(MESSAGGIO_BENVENUTO);
@@ -108,7 +107,7 @@ public class DiaDia {
 			return false;
 	}   
 
-	// implementazioni dei comandi dell'utente:
+	// Implementazioni dei comandi dell'utente
 
 	/**
 	 * Stampa informazioni di aiuto.
@@ -143,7 +142,6 @@ public class DiaDia {
 				break;
 			}
 		}
-		
 		this.console.mostraMessaggio(msg.toString());
 	}
 
@@ -181,33 +179,33 @@ public class DiaDia {
 	 */
 	private void prendi(String object) {
 		boolean vuoto = this.partita.getStanzaCorrente().isEmpty();
-		if(!vuoto) {//controllo se ci sono attrezzi nella stanza
+		if(!vuoto) { //controllo se ci sono attrezzi nella stanza
 
-			if(object == null) {//controllo se è stato scritto un attrezzo da prendere
+			if(object == null) { //controllo se è stato scritto un attrezzo da prendere
 				this.console.mostraMessaggio("Quale attrezzo vuoi prendere? \nEcco un elenco degli attrezzi presenti nella stanza: ");
-				for(Attrezzo attre : this.partita.getStanzaCorrente().getAttrezzi())//stampo elenco di attrezzi nella stanza
+				for(Attrezzo attre : this.partita.getStanzaCorrente().getAttrezzi()) //stampo elenco di attrezzi nella stanza
 					if(attre != null)
 						this.console.mostraMessaggio(attre.getDescrizione());
 
-				object = this.console.leggiRiga();//leggo attrezzo scelto
+				object = this.console.leggiRiga(); //leggo attrezzo scelto
 			}
 
 			if(this.partita.getStanzaCorrente().hasAttrezzo(object)) //controllo se attrezzo è presente
-				if(this.partita.getGiocatore().getBorsa().addAttrezzo(this.partita.getStanzaCorrente().getAttrezzo(object)))//controllo se possibile mettere attrezzo in inventario
+				if(this.partita.getGiocatore().getBorsa().addAttrezzo(this.partita.getStanzaCorrente().getAttrezzo(object))) //controllo se possibile mettere attrezzo in inventario
 					if(this.partita.getStanzaCorrente().removeAttrezzo(object)) //rimuovi da stanza con controllo di eventuali errori
 						//aggiungi a inventario
 						this.console.mostraMessaggio(object + " inserito nel tuo inventario\n");
-					else{//riga 179
+					else{ //riga 179
 						//nessuna aggiunta per via di un fallimento nella rimozione dalla stanza
 						this.console.mostraMessaggio("Rimozione non riuscita\n");
 						this.partita.getGiocatore().getBorsa().removeAttrezzo(object);
 					}
-				else//riga 178
+				else //riga 178
 					//nessuna aggiunta per via di un fallimento nell'aggiunta alla borsa
 					this.console.mostraMessaggio("NON PUOI PRENDERE L'ATTREZZO! \nEcco il contenuto della tua borsa:\n" + this.partita.getGiocatore().getBorsa().getDescrizione());
-			else//riga 177
-				this.console.mostraMessaggio("L'attrezzo che vuoi prendere non è presente nella stanza");
-		}else//riga 166
+			else //riga 177
+				this.console.mostraMessaggio("Attrezzo non presente nella stanza!\n");
+		}else //riga 166
 			this.console.mostraMessaggio("Non ci sono attrezzi in questa stanza\n");
 	}
 	
@@ -219,23 +217,23 @@ public class DiaDia {
 		boolean vuoto = this.partita.getGiocatore().getBorsa().isEmpty();
 		if(!vuoto) { //controllo se ci sono attrezzi nella borsa
 
-			if(object == null) {//controllo se è stato scritto un attrezzo da prendere
+			if(object == null) { //controllo se è stato scritto un attrezzo da prendere
 				this.console.mostraMessaggio("Quale oggetto della tua borsa vuoi posare? \nEcco un elenco:");
 				for(Attrezzo a : this.partita.getGiocatore().getBorsa().getAttrezzi())//stampo elenco di attrezzi nella borsa
 					if(a != null)
 						this.console.mostraMessaggio(a.getDescrizione());
-				object = this.console.leggiRiga();//leggo attrezzo scelto
+				object = this.console.leggiRiga(); //leggo attrezzo scelto
 			}	
 			
 			if(this.partita.getGiocatore().getBorsa().hasAttrezzo(object)) //controllo se attrezzo è presente
 				if(this.partita.getStanzaCorrente().addAttrezzo(this.partita.getGiocatore().getBorsa().removeAttrezzo(object)))//controllo se possibile mettere attrezzo nella stanza
-						this.console.mostraMessaggio(object + " è stato rimosso dal tuo inventario \nEcco una descrizione della tua borsa adesso: \n" + this.partita.getGiocatore().getBorsa().getDescrizione() + "\n");
-				else//riga 209
+						this.console.mostraMessaggio(object + " rimosso dal tuo inventario \nEcco una descrizione della tua borsa adesso: \n" + this.partita.getGiocatore().getBorsa().getDescrizione() + "\n");
+				else //riga 209
 					//nessuna rimozione per via di un fallimento nell'aggiunta nella stanza 
 					this.console.mostraMessaggio("Impossibile inserire oggetto nella stanza!\n");
-			else//riga 208
-				this.console.mostraMessaggio("L'attrezzo non è presente nella tua borsa\n");
-		}else//riga 196
+			else //riga 208
+				this.console.mostraMessaggio("Attrezzo non presente nella tua borsa\n");
+		}else //riga 196
 			this.console.mostraMessaggio("Non ci sono attrezzi nella tua borsa\n");
 	}
 	
@@ -244,42 +242,43 @@ public class DiaDia {
 	 * @param object stringa che rappresenta l'oggetto di cui si vogliono sapere le informazioni
 	 */
 	private void info(String object) {
-		if(object == null) {//controllo se è stato scritto il oggetto di cui si vogliono informazioni
+		if(object == null) { //controllo se è stato scritto il oggetto di cui si vogliono informazioni
 			this.console.mostraMessaggio("Di quali informazioni hai bisogno?\n");
-			this.console.mostraMessaggio("Borsa \nGiocatore \nStanza \n");//elenco degli oggetti di cui si possono ricevere informazioni
+			this.console.mostraMessaggio("Borsa \nGiocatore \nStanza \n"); //elenco degli oggetti di cui si possono ricevere informazioni
 
-			object = this.console.leggiRiga();//leggo oggetto di cui si richiedono informazioni
+			object = this.console.leggiRiga(); //leggo oggetto di cui si richiedono informazioni
 		}
 
 		StringBuilder msg = new StringBuilder();//creao una stringa che stamperà il messaggio con le informazioni
 
 		switch (object) {
 		case "borsa":
-			msg.append(this.partita.getGiocatore().getBorsa().getDescrizione());//aggiungo descrizione della borsa alla stringa
+			msg.append(this.partita.getGiocatore().getBorsa().getDescrizione()); //aggiungo descrizione della borsa alla stringa
 			break;
 		case "giocatore":
-			msg.append(this.partita.getGiocatore().getDescrizione());//aggiungo descrizione del giocatore alla stringa
+			msg.append(this.partita.getGiocatore().getDescrizione()); //aggiungo descrizione del giocatore alla stringa
 			break;
 		case "stanza":
-			msg.append(this.partita.getStanzaCorrente().getDescrizione());//aggiungo descrizione della stanza alla stringa
+			msg.append(this.partita.getStanzaCorrente().getDescrizione()); //aggiungo descrizione della stanza alla stringa
 			break;
 		default:
 			msg.append("Informazioni non disponibili per: " + object);
 			break;
 		}
 		msg.append("\n");
-		this.console.mostraMessaggio(msg.toString());//stampa delle informazioni
+		this.console.mostraMessaggio(msg.toString()); //stampa delle informazioni
 	}
 
 	/**
 	 * Comando "Fine".
 	 */
 	private void fine() {
-		this.console.mostraMessaggio("Grazie di aver giocato!");  // si desidera smettere
+		this.console.mostraMessaggio("Grazie di aver giocato!"); // si desidera smettere
 	}
 
 	public static void main(String[] argc) {
 		DiaDia gioco = new DiaDia();
 		gioco.gioca();
 	}
+
 }

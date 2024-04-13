@@ -7,7 +7,6 @@ import org.junit.Test;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 
-
 public class PartitaTest {
 	private Partita partita;
 	private Labirinto labirinto;	
@@ -53,5 +52,5 @@ public class PartitaTest {
 		this.partita.setStanzaCorrente(stanzaCorrente);
 		assertFalse(this.partita.isFinita());
 	}
-
+	
 }

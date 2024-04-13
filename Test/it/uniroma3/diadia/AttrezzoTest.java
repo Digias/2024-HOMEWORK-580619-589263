@@ -25,5 +25,5 @@ public class AttrezzoTest {
 	public void testGetPeso() {
 		assertEquals(1, this.attrezzo.getPeso());
 	}
-
+	
 }

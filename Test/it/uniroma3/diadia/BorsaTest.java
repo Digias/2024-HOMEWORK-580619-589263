@@ -157,4 +157,5 @@ public class BorsaTest {
 			this.borsa.addAttrezzo(elencoAttrezzi[i]);
 		assertFalse(this.borsa.isEmpty());
 	}
+
 }

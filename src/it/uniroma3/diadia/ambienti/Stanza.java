@@ -25,7 +25,6 @@ public class Stanza {
 	private int numeroStanzeAdiacenti;
 	private String[] direzioni;
 
-
 	/**
 	 * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
 	 * @param nome il nome della stanza
@@ -191,7 +190,6 @@ public class Stanza {
 	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
 	 */
 	public boolean removeAttrezzo(String attrezzo) {
-		// TODO da implementare
 		for(int i = 0; i < this.numeroAttrezzi; i++) {
 			if(this.attrezzi[i].getNome().equals(attrezzo)) {
 				for(int j = i; j < this.numeroAttrezzi-1; j++) //ciclo per spostare tutti gli elementi indietro di una posizione per array compatto

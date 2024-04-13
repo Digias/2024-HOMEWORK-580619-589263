@@ -12,6 +12,7 @@ import it.uniroma3.diadia.ambienti.Stanza;
  * @see Stanza
  * @version base
  */
+
 public class Attrezzo {
 
 	private String nome;

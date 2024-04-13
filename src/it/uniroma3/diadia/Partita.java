@@ -21,8 +21,6 @@ public class Partita {
 	private Stanza stanzaCorrente;
 	private boolean finita;
 	
-
-	
 	public Partita(Labirinto labirinto){
 		this.labirinto = labirinto;
 		this.stanzaCorrente = this.labirinto.getStanzaIniziale();
@@ -79,6 +77,5 @@ public class Partita {
 	public Labirinto getLabirinto() {
 		return labirinto;
 	}
-
 	
 }

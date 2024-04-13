@@ -19,4 +19,5 @@ public class IOConsole {
 		//scannerDiLinee.close();
 		return riga;
 	}
+
 }

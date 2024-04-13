@@ -5,7 +5,9 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 /**
  * 
  */
+
 public class Borsa {
+	
 	public final static int DEFAULT_PESO_MAX_BORSA = 10;//peso massimo della borsa
 
 	private Attrezzo[] attrezzi;
@@ -109,7 +111,7 @@ public class Borsa {
 				return a; // Attrezzo rimosso con successo
 			}
 		}
-		return a;// Attrezzo non trovato
+		return a; // Attrezzo non trovato
 	}
 
 	/**
@@ -131,4 +133,5 @@ public class Borsa {
 	public String getDescrizione() {
 		return this.toString();
 	}
+
 }
