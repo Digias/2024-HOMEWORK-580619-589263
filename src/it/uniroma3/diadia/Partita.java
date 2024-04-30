@@ -77,5 +77,10 @@ public class Partita {
 	public Labirinto getLabirinto() {
 		return labirinto;
 	}
+
+	public boolean giocatoreIsVivo() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 	
 }

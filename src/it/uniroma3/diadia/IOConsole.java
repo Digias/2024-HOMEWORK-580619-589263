@@ -1,7 +1,7 @@
 package it.uniroma3.diadia;
 import java.util.Scanner;
 
-public class IOConsole {
+public class IOConsole implements IO{
 	/**
 	 * 
 	 * @param msg stringa da stampare in output
@@ -16,8 +16,15 @@ public class IOConsole {
 	public String leggiRiga() {
 		Scanner scannerDiLinee = new Scanner(System.in);
 		String riga = scannerDiLinee.nextLine();
-		//scannerDiLinee.close();
+		scannerDiLinee.close();
 		return riga;
+	}
+	
+	public String leggiParola() {
+		Scanner scannerDiParole = new Scanner(System.in);
+		String parola = scannerDiParole.next();
+		scannerDiParole.close();
+		return parola;
 	}
 
 }
