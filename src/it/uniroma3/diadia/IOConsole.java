@@ -16,14 +16,14 @@ public class IOConsole implements IO{
 	public String leggiRiga() {
 		Scanner scannerDiLinee = new Scanner(System.in);
 		String riga = scannerDiLinee.nextLine();
-		scannerDiLinee.close();
+		//scannerDiLinee.close();
 		return riga;
 	}
 	
 	public String leggiParola() {
 		Scanner scannerDiParole = new Scanner(System.in);
 		String parola = scannerDiParole.next();
-		scannerDiParole.close();
+		//scannerDiParole.close();
 		return parola;
 	}
 
