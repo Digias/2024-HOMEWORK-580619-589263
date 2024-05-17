@@ -1,7 +1,8 @@
 package it.uniroma3.diadia;
 
-import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.*;
 import it.uniroma3.diadia.comandi.*;
+
 
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
@@ -17,7 +18,7 @@ import it.uniroma3.diadia.comandi.*;
 
 public class DiaDia {
 
-	static final private String MESSAGGIO_BENVENUTO = ""+
+	public static final String MESSAGGIO_BENVENUTO = ""+
 			"Ti trovi nell'Universita', ma oggi e' diversa dal solito...\n" +
 			"Meglio andare al piu' presto in biblioteca a studiare. Ma dov'e'?\n"+
 			"I locali sono popolati da strani personaggi, " +
@@ -30,19 +31,24 @@ public class DiaDia {
 	//final: il vaore della costante non si può più modificare dopo inizializzazione
 	//static: la costante è condivisa da tutte le istanze della classe e puo' essere acceduta senza creare un'istanza della classe stessa
 	//private: altre classi non possono accedere direttamente
-	 //
+	//
 
 	private IO console;
 	private Partita partita; 
 	private Labirinto labirinto;
-
+	
 	public DiaDia(IO console) {
-		this.labirinto = new Labirinto();
+		this.console = console;
+	}
+	
+	public DiaDia(Labirinto labirinto,IO console) {
+		this.labirinto = labirinto;
 		this.partita = new Partita(this.labirinto);
 		this.console = console;
 	}
 
-	public void gioca() {		
+	public void gioca() {	
+		/*
 		this.console.mostraMessaggio("Inserisci il tuo nome? \n");
 
 		String nome; //nome da attribuire al giocatore
@@ -51,8 +57,9 @@ public class DiaDia {
 		while ((nome == null));
 
 		this.partita.getGiocatore().setNome(nome); // Set del nome del giocatore
-
+		
 		this.console.mostraMessaggio("Benvenuto " + this.partita.getGiocatore().getNome() + "\n");
+		*/
 		this.console.mostraMessaggio(MESSAGGIO_BENVENUTO);
 
 		String istruzione; 
@@ -68,24 +75,33 @@ public class DiaDia {
 	 */
 	private boolean processaIstruzione(String istruzione) {
 		Comando comandoDaEseguire;
-		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica();
-		
+		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica(console);
+
 		comandoDaEseguire = factory.costruisciComando(istruzione);
 		comandoDaEseguire.esegui(this.partita);
-		this.console.mostraMessaggio(comandoDaEseguire.getMessaggio());
-		
-		if (this.partita.vinta())
-			System.out.println("Hai vinto!");
-			if (!this.partita.giocatoreIsVivo())
-			System.out.println("Hai esaurito i CFU...");
-			return this.partita.isFinita();
+
+		if (this.partita.vinta()) 
+			this.console.mostraMessaggio("Hai vinto!");;
+
+		if (!this.partita.giocatoreIsVivo())
+			this.console.mostraMessaggio("Hai esaurito i CFU...");
+
+		return this.partita.isFinita();
 	}   
 
 	public static void main(String[] argc) {
 		IO io = new IOConsole();
-		//IO io = new IOsimulator();
-		DiaDia gioco = new DiaDia(io);
+		//IO io = new IOSimulator();
+
+		Labirinto labirinto = new LabirintoBuilder()
+				.addStanzaIniziale("Atrio")
+				.addAttrezzo("martello", 3)
+				.addStanzaVincente("Biblioteca")
+				.addAdiacenza("Atrio", "Biblioteca", "nord")
+				.getLabirinto();
+
+		DiaDia gioco = new DiaDia(labirinto, io);
 		gioco.gioca();
 	}
-
+	
 }

@@ -1,11 +1,13 @@
 package it.uniroma3.diadia.comandi;
 
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoPrendi implements Comando {
 	private String object;
-	private String messaggio;
+	private IO io;
+
 
 	public ComandoPrendi() {
 	}
@@ -47,7 +49,7 @@ public class ComandoPrendi implements Comando {
 			
 		}else //riga 166
 			msg.append("Non ci sono attrezzi in questa stanza\n");
-		this.setMessaggio(msg.toString());
+		this.io.mostraMessaggio(msg.toString());
 	}
 
 	@Override
@@ -56,12 +58,11 @@ public class ComandoPrendi implements Comando {
 	}
 
 	@Override
-	public String getMessaggio() {
-		return this.messaggio;
+	public void setIo(IO io) {
+		this.io = io;
 	}
 
 	public void setMessaggio(String msg) {
-		this.messaggio = msg;
 	}
 
 	@Override
@@ -73,5 +74,6 @@ public class ComandoPrendi implements Comando {
 	public String getNome() {
 		return "prendi";
 	}
+	
 
 }

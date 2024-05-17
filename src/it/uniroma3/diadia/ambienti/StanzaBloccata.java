@@ -1,22 +1,26 @@
 package it.uniroma3.diadia.ambienti;
 
-public class StanzaBloccata extends StanzaProtected{
+import java.util.*;
+
+import it.uniroma3.diadia.attrezzi.Attrezzo;
+
+public class StanzaBloccata extends Stanza{
 
 	private String lockedDirection;
 	private String key;
-	
+
 	//Costruttore
 	public StanzaBloccata(String nome, String lockedDirection, String key) {
 		super(nome);
 		this.lockedDirection = lockedDirection;
 		this.key = key;
 	}
-	
+
 	@Override
-	public StanzaProtected getStanzaAdiacente(String direzione) {
+	public Stanza getStanzaAdiacente(String direzione) {
 		if(this.lockedDirection == null || this.key == null || this.hasAttrezzo(key))
 			return super.getStanzaAdiacente(direzione);
-		
+
 		return this;
 	}
 
@@ -24,28 +28,30 @@ public class StanzaBloccata extends StanzaProtected{
 	public String toString() {
 		if(this.lockedDirection == null || this.key == null || this.hasAttrezzo(key))
 			return super.toString();
-		
+
 
 		StringBuilder risultato = new StringBuilder();
-		risultato.append(this.nome);
+		risultato.append(this.getNome());
 		risultato.append("\nUscite: ");
-		for (String direzione : this.direzioni)
-			if (direzione != null && direzione.equals(this.lockedDirection))
-				risultato.append("\nLocked direction: " + direzione);
+		Iterator<String> iter = this.getDirezioni().iterator();
+		while(iter.hasNext()) {
+			String d = iter.next();
+			if (d != null && d.equals(this.lockedDirection))
+				risultato.append("\nLocked direction: " + d);
 			else
-				risultato.append("\nUnlocked direction" + direzione);
+				risultato.append("\nUnlocked direction" + d);
+		}
 		risultato.append("\nAttrezzi nella stanza: ");
-		
-		if(!this.isEmpty()) 
-			for (int i = 0; i < this.numeroAttrezzi; i++) {
-				if(this.attrezzi[i] != null) 
-					risultato.append(this.attrezzi[i].getDescrizione()+" ");
-			}
-		else
+
+		if(!this.isEmpty()) {
+			Iterator<Attrezzo> i = this.getAttrezzi().iterator();
+			while(i.hasNext())
+				risultato.append(i.next().getDescrizione()+" ");
+		}else
 			risultato.append("Non ci sono attrezzi nella stanza\n");
 		return risultato.toString();
 	}
-	
+
 	@Override
 	public String getDescrizione() {
 		return this.toString();

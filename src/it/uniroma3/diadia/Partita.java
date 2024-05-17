@@ -79,7 +79,6 @@ public class Partita {
 	}
 
 	public boolean giocatoreIsVivo() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 	

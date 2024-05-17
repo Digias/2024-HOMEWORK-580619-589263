@@ -2,7 +2,7 @@ package it.uniroma3.diadia.ambienti;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class StanzaMagicaProtected extends Stanza{
+public class StanzaMagicaProtected extends StanzaProtected{
 	
 	private int contatoreAttrezziPosati;
 	private int sogliaMagica;

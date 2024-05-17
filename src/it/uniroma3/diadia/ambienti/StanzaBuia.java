@@ -1,6 +1,6 @@
 package it.uniroma3.diadia.ambienti;
 
-public class StanzaBuia extends StanzaProtected{
+public class StanzaBuia extends Stanza{
 	private String shinyObject; 
 
 	public StanzaBuia(String nome, String shinyObject) {

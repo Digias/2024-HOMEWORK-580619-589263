@@ -1,10 +1,12 @@
 package it.uniroma3.diadia.comandi;
 
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
 public class ComandoGuarda implements Comando {
 	private String object;
-	private String messaggio;
+	private IO io;
+
 
 	public ComandoGuarda() {
 
@@ -17,7 +19,7 @@ public class ComandoGuarda implements Comando {
 		if(this.object == null) { //controllo se è stato scritto il oggetto di cui si vogliono informazioni
 			msg.append("Di quali informazioni hai bisogno?\n");
 			msg.append("Borsa \nGiocatore \nStanza \n"); //elenco degli oggetti di cui si possono ricevere informazioni
-
+			//this.io.mostraMessaggio(msg.toString());
 			//this.setParametro(this.console.leggiRiga()); //leggo oggetto di cui si richiedono informazioni
 			
 		}else {
@@ -36,9 +38,9 @@ public class ComandoGuarda implements Comando {
 				msg.append("Informazioni non disponibili per: " + this.object);
 				break;
 			}
-			msg.append("\n");
+			this.io.mostraMessaggio("\n");
 		}
-		this.setMessaggio(msg.toString()); //stampa delle informazioni
+		//this.setMessaggio(msg.toString()); //stampa delle informazioni
 	}
 
 	/*
@@ -53,8 +55,8 @@ public class ComandoGuarda implements Comando {
 	 * get messaggio output
 	 */
 	@Override
-	public String getMessaggio() {
-		return this.messaggio;
+	public void setIo(IO io) {
+		this.io = io;
 	}
 
 	/* 
@@ -62,7 +64,6 @@ public class ComandoGuarda implements Comando {
 	 */
 	@Override
 	public String getParametro() {
-		// TODO Auto-generated method stub
 		return this.object;
 	}
 
@@ -71,7 +72,6 @@ public class ComandoGuarda implements Comando {
 	 */
 	@Override
 	public String getNome() {
-		// TODO Auto-generated method stub
 		return "guarda";
 	}
 	
@@ -79,6 +79,6 @@ public class ComandoGuarda implements Comando {
 	 * set messaggio di output
 	 */
 	public void setMessaggio(String msg) {
-		this.messaggio = msg;
 	}
+	
 }

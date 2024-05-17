@@ -1,23 +1,26 @@
 package it.uniroma3.diadia.comandi;
 
+import java.util.*;
+
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
 public class ComandoAiuto implements Comando {
-	private String[] elencoComandi;
-	private String messaggio;
-
-	public ComandoAiuto(String[] elenco) {
-		this.elencoComandi = elenco;
+	static final public String[] ELENCO_COMANDI = {"vai", "prendi", "posa", "guarda", "aiuto", "fine"};
+	private List<String> elencoComandi;
+	private IO io;
+	public ComandoAiuto() {
+		this.elencoComandi = new ArrayList<>(Arrays.asList(ELENCO_COMANDI));
 	}
 	
 	@Override
 	public void esegui(Partita partita) {
 		StringBuilder msg = new StringBuilder();
 		msg.append("Puoi digitare i seguenti comandi: \n");
-		for(int i=0; i< elencoComandi.length; i++) {
-			msg.append("\033[0;1m" + elencoComandi[i]);
+		for(int i=0; i< elencoComandi.size(); i++) {
+			msg.append("\033[0;1m" + elencoComandi.get(i));
 
-			switch(elencoComandi[i]) {
+			switch(elencoComandi.get(i)) {
 			case "vai":
 				msg.append("\033[0m: Inserisci una direzione e ti sposti nella stanza della direzione indicata\n");
 				break;
@@ -41,33 +44,33 @@ public class ComandoAiuto implements Comando {
 				break;
 			}
 		}
-		this.setMessaggio(msg.toString());
+		this.io.mostraMessaggio(msg.toString());
 	}
 
 	@Override
 	public void setParametro(String parametro) {
 
 	}
-	
-	@Override
-	public String getMessaggio() {
-		return this.messaggio;
-	}
 
 	public void setMessaggio(String msg) {
-		this.messaggio = msg;
 	}
 
 	@Override
 	public String getParametro() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getNome() {
-		// TODO Auto-generated method stub
 		return "aiuto";
 	}
 
+	public List<String> getElencoComandi(){
+		return this.elencoComandi;
+	}
+
+	@Override
+	public void setIo(IO io) {
+		this.io = io;
+	}
 }

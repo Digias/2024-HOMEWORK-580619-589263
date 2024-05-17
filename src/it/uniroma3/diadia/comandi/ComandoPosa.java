@@ -1,12 +1,12 @@
 package it.uniroma3.diadia.comandi;
 
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoPosa implements Comando {
 	private String object;
-	private String messaggio;
-
+	private IO io;
 	public ComandoPosa() {
 	}
 
@@ -38,7 +38,7 @@ public class ComandoPosa implements Comando {
 		}else //riga 196
 			msg.append("Non ci sono attrezzi nella tua borsa\n");
 
-		this.setMessaggio(msg.toString());
+		this.io.mostraMessaggio(msg.toString());
 	}
 
 	@Override
@@ -47,12 +47,11 @@ public class ComandoPosa implements Comando {
 	}
 
 	@Override
-	public String getMessaggio() {
-		return this.messaggio;
+	public void setIo(IO io) {
+		this.io = io;
 	}
 
 	public void setMessaggio(String msg) {
-		this.messaggio = msg;
 	}
 
 	@Override
