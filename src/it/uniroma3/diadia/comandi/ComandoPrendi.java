@@ -1,17 +1,11 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class ComandoPrendi implements Comando {
+public class ComandoPrendi extends AbstractComando {
 	private String object;
-	private IO io;
-
-
-	public ComandoPrendi() {
-	}
-
+	private final static String NOME = "prendi";
 	
 	// Esecuzione del comando
 	@Override
@@ -46,10 +40,10 @@ public class ComandoPrendi implements Comando {
 				else //riga 177
 					msg.append("Attrezzo non presente nella stanza!\n");
 			}
-			
+
 		}else //riga 166
 			msg.append("Non ci sono attrezzi in questa stanza\n");
-		this.io.mostraMessaggio(msg.toString());
+		this.getIo().mostraMessaggio(msg.toString());
 	}
 
 	@Override
@@ -58,22 +52,13 @@ public class ComandoPrendi implements Comando {
 	}
 
 	@Override
-	public void setIo(IO io) {
-		this.io = io;
-	}
-
-	public void setMessaggio(String msg) {
-	}
-
-	@Override
 	public String getParametro() {
 		return this.object;
 	}
-
+	
 	@Override
 	public String getNome() {
-		return "prendi";
+		return NOME;
 	}
-	
 
 }

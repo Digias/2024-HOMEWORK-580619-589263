@@ -1,16 +1,10 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
-public class ComandoGuarda implements Comando {
+public class ComandoGuarda extends AbstractComando {
 	private String object;
-	private IO io;
-
-
-	public ComandoGuarda() {
-
-	}
+	private final static String NOME = "guarda";
 
 	@Override
 	public void esegui(Partita partita) {
@@ -38,10 +32,11 @@ public class ComandoGuarda implements Comando {
 				msg.append("Informazioni non disponibili per: " + this.object);
 				break;
 			}
-			this.io.mostraMessaggio("\n");
+			msg.append("\n"); //stampa delle informazioni
 		}
-		//this.setMessaggio(msg.toString()); //stampa delle informazioni
+		this.getIo().mostraMessaggio(msg.toString()); 
 	}
+
 
 	/*
 	 * set parametro 
@@ -51,14 +46,6 @@ public class ComandoGuarda implements Comando {
 		this.object = parametro;
 	}
 
-	/*
-	 * get messaggio output
-	 */
-	@Override
-	public void setIo(IO io) {
-		this.io = io;
-	}
-
 	/* 
 	 * get parametro
 	 */
@@ -66,19 +53,10 @@ public class ComandoGuarda implements Comando {
 	public String getParametro() {
 		return this.object;
 	}
-
-	/**
-	 * get nome
-	 */
+	
 	@Override
 	public String getNome() {
-		return "guarda";
-	}
-	
-	/*
-	 * set messaggio di output
-	 */
-	public void setMessaggio(String msg) {
+		return NOME;
 	}
 	
 }

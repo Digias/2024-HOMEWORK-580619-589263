@@ -6,18 +6,18 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class StanzaBloccata extends Stanza{
 
-	private String lockedDirection;
+	private Direzione lockedDirection;
 	private String key;
 
 	//Costruttore
-	public StanzaBloccata(String nome, String lockedDirection, String key) {
+	public StanzaBloccata(String nome, Direzione direzione, String key) {
 		super(nome);
-		this.lockedDirection = lockedDirection;
+		this.lockedDirection = direzione;
 		this.key = key;
 	}
 
 	@Override
-	public Stanza getStanzaAdiacente(String direzione) {
+	public Stanza getStanzaAdiacente(Direzione direzione) {
 		if(this.lockedDirection == null || this.key == null || this.hasAttrezzo(key))
 			return super.getStanzaAdiacente(direzione);
 
@@ -33,9 +33,9 @@ public class StanzaBloccata extends Stanza{
 		StringBuilder risultato = new StringBuilder();
 		risultato.append(this.getNome());
 		risultato.append("\nUscite: ");
-		Iterator<String> iter = this.getDirezioni().iterator();
+		Iterator<Direzione> iter = this.getDirezioni().iterator();
 		while(iter.hasNext()) {
-			String d = iter.next();
+			Direzione d = iter.next();
 			if (d != null && d.equals(this.lockedDirection))
 				risultato.append("\nLocked direction: " + d);
 			else
@@ -48,7 +48,15 @@ public class StanzaBloccata extends Stanza{
 			while(i.hasNext())
 				risultato.append(i.next().getDescrizione()+" ");
 		}else
-			risultato.append("Non ci sono attrezzi nella stanza\n");
+			risultato.append("Non ci sono attrezzi nella stanza");
+		
+		risultato.append("\n");
+		
+		if(this.getPersonaggio() == null)
+			risultato.append("Non ci sono altri personaggi\n");
+		else
+			risultato.append("Non sei solo nella stanza!\n");
+		
 		return risultato.toString();
 	}
 

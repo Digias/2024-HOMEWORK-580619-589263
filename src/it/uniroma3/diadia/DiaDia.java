@@ -1,5 +1,8 @@
 package it.uniroma3.diadia;
 
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import it.uniroma3.diadia.ambienti.*;
 import it.uniroma3.diadia.comandi.*;
 
@@ -47,61 +50,52 @@ public class DiaDia {
 		this.console = console;
 	}
 
-	public void gioca() {	
-		/*
-		this.console.mostraMessaggio("Inserisci il tuo nome? \n");
-
-		String nome; //nome da attribuire al giocatore
-		do		
-			nome = this.console.leggiRiga(); //leggo il nome del giocatore
-		while ((nome == null));
-
-		this.partita.getGiocatore().setNome(nome); // Set del nome del giocatore
-		
-		this.console.mostraMessaggio("Benvenuto " + this.partita.getGiocatore().getNome() + "\n");
-		*/
-		this.console.mostraMessaggio(MESSAGGIO_BENVENUTO);
-
+	public void gioca(){
 		String istruzione; 
-		do		
+		
+		this.console.mostraMessaggio(MESSAGGIO_BENVENUTO);
+		do {
 			istruzione = this.console.leggiRiga();
-		while (!processaIstruzione(istruzione));
-	}   
+		}while (!processaIstruzione(istruzione) );
+
+	} 
 
 	/**
 	 * Processa una istruzione 
 	 *
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false altrimenti
 	 */
-	private boolean processaIstruzione(String istruzione) {
+	private boolean processaIstruzione(String istruzione){
 		Comando comandoDaEseguire;
-		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica(console);
-
+		FabbricaDiComandiRiflessiva factory = new FabbricaDiComandiRiflessiva(this.console);
+		
 		comandoDaEseguire = factory.costruisciComando(istruzione);
+		
 		comandoDaEseguire.esegui(this.partita);
-
-		if (this.partita.vinta()) 
-			this.console.mostraMessaggio("Hai vinto!");;
-
+		if (this.partita.vinta())
+			this.console.mostraMessaggio("Hai vinto!");
 		if (!this.partita.giocatoreIsVivo())
 			this.console.mostraMessaggio("Hai esaurito i CFU...");
-
 		return this.partita.isFinita();
-	}   
+	} 
 
-	public static void main(String[] argc) {
-		IO io = new IOConsole();
+	public static void main(String[] argc){
+		Scanner scanner = new Scanner(System.in);
+		IO io = new IOConsole(scanner);
 		//IO io = new IOSimulator();
 
-		Labirinto labirinto = new LabirintoBuilder()
-				.addStanzaIniziale("Atrio")
-				.addAttrezzo("martello", 3)
-				.addStanzaVincente("Biblioteca")
-				.addAdiacenza("Atrio", "Biblioteca", "nord")
-				.getLabirinto();
+		Labirinto labirinto = null;
+		try {
+			labirinto = Labirinto.newBuilder("labirinto5.txt").getLabirinto();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (FormatoFileNonValidoException e) {
+			e.printStackTrace();
+		}
 
 		DiaDia gioco = new DiaDia(labirinto, io);
 		gioco.gioca();
+		scanner.close();
 	}
 	
 }

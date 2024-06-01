@@ -4,9 +4,7 @@ import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
 public interface Comando {
-	/**
-	 * Esecuzione comando
-	 */
+
 	public void esegui(Partita partita);
 
 	void setParametro(String parametro);
@@ -14,7 +12,7 @@ public interface Comando {
 	String getParametro();
 
 	public void setIo(IO io);
-	
+
 	public String getNome();
-	
 }
+

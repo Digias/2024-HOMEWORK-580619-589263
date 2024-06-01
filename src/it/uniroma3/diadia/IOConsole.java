@@ -2,6 +2,10 @@ package it.uniroma3.diadia;
 import java.util.Scanner;
 
 public class IOConsole implements IO{
+	private Scanner scanner;
+	public IOConsole(Scanner scanner) {
+		this.scanner = scanner;
+	}
 	/**
 	 * 
 	 * @param msg stringa da stampare in output
@@ -14,17 +18,11 @@ public class IOConsole implements IO{
 	 * @return stringa con il messaggio di input
 	 */
 	public String leggiRiga() {
-		Scanner scannerDiLinee = new Scanner(System.in);
-		String riga = scannerDiLinee.nextLine();
+		//Scanner scannerDiLinee = new Scanner(System.in);
+		String riga = this.scanner.nextLine();
 		//scannerDiLinee.close();
 		return riga;
 	}
-	
-	public String leggiParola() {
-		Scanner scannerDiParole = new Scanner(System.in);
-		String parola = scannerDiParole.next();
-		//scannerDiParole.close();
-		return parola;
-	}
+
 
 }
