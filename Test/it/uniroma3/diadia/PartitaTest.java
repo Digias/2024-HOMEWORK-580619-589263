@@ -1,11 +1,13 @@
 package it.uniroma3.diadia;
 
 import static org.junit.Assert.*;
+
+import java.io.FileNotFoundException;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 public class PartitaTest {
@@ -13,13 +15,13 @@ public class PartitaTest {
 	private Labirinto labirinto;	
 
 	@Before
-	public void setUp() {
-		this.labirinto = new LabirintoBuilder()
-				.addStanzaIniziale("Atrio")
-				.addAttrezzo("martello", 3)
-				.addStanzaVincente("Biblioteca")
-				.addAdiacenza("Atrio", "Biblioteca", "nord")
-				.getLabirinto();
+	public void setUp() throws FileNotFoundException, FormatoFileNonValidoException {
+		labirinto = Labirinto.newBuilder("labirinto2.txt").getLabirinto();
+//				.addStanzaIniziale("Atrio")
+//				.addAttrezzo("martello", 3)
+//				.addStanzaVincente("Biblioteca")
+//				.addAdiacenza("Atrio", "Biblioteca", Direzione.nord)
+//				.getLabirinto();
 		this.partita = new Partita(this.labirinto);
 	}
 	

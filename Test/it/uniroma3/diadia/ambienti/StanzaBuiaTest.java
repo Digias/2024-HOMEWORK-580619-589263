@@ -9,7 +9,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class StanzaBuiaTest {
 	private StanzaBuia stanza1;
-	private StanzaProtected stanza2;
+	private Stanza stanza2;
 	String[] direzioni = {"nord", "est", "ovest", "sud"};
 
 	private Attrezzo[] sequenzaAttrezzi(String...attrezzo) {
@@ -24,7 +24,7 @@ public class StanzaBuiaTest {
 	@Before
 	public void setUpStanza() {
 		stanza1 = new StanzaBuia("Stanza1", "lanterna");
-		stanza2 = new StanzaProtected("Stanza1");
+		stanza2 = new Stanza("Stanza1");
 	}
 
 	@Before

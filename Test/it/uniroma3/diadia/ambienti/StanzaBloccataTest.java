@@ -8,7 +8,7 @@ import org.junit.Test;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class StanzaBloccataTest {
-	private String[] elencoDirezioni = {"nord", "sud", "ovest", "est"};
+	private Direzione[] elencoDirezioni = Direzione.values();
 	private StanzaBloccata stanza1;
 	private Stanza stanza2;
 	String[] direzioni = {"nord", "est", "ovest", "sud"};
@@ -31,7 +31,7 @@ public class StanzaBloccataTest {
 
 	@Before
 	public void setUpStanza() {
-		stanza1 = new StanzaBloccata("Stanza1", "nord","chiave");
+		stanza1 = new StanzaBloccata("Stanza1", Direzione.nord,"chiave");
 		stanza2 = new Stanza("Stanza1");
 	}
 
@@ -52,7 +52,7 @@ public class StanzaBloccataTest {
 			stanza1.impostaStanzaAdiacente(elencoDirezioni[i], elencoStanze[i]);
 		}
 		
-		assertEquals(elencoStanze[0],stanza1.getStanzaAdiacente("nord"));
+		assertEquals(elencoStanze[0],stanza1.getStanzaAdiacente(Direzione.nord));
 	}
 	
 	@Test
@@ -67,14 +67,14 @@ public class StanzaBloccataTest {
 			stanza1.impostaStanzaAdiacente(elencoDirezioni[i], elencoStanze[i]);
 		}
 		
-		assertEquals(stanza1, stanza1.getStanzaAdiacente("nord"));
+		assertEquals(stanza1, stanza1.getStanzaAdiacente(Direzione.nord));
 	}
 
 	@Test
 	public void testGetDescrizione_nonBloccata() {
 		Attrezzo[] elencoAttrezzi = sequenzaAttrezzi("lanterna", "spada", "chiave");
 		Stanza[] elencoStanze = sequenzaStanze("StanzaBloccata", "Stanza2", "Stanza3");
-		StanzaBloccata stanzaNull = new StanzaBloccata("Stanza1", "nord", "chiave");
+		StanzaBloccata stanzaNull = new StanzaBloccata("Stanza1", Direzione.nord, "chiave");
 		
 		for(int i = 0; i < elencoAttrezzi.length; i++) {
 			stanzaNull.addAttrezzo(elencoAttrezzi[i]);
@@ -93,7 +93,7 @@ public class StanzaBloccataTest {
 	public void testGetDescrizione_keyNull() {
 		Attrezzo[] elencoAttrezzi = sequenzaAttrezzi("lanterna", "spada");
 		Stanza[] elencoStanze = sequenzaStanze("StanzaBloccata", "Stanza2", "Stanza3");
-		StanzaBloccata stanzaNull = new StanzaBloccata("Stanza1", "nord", null);
+		StanzaBloccata stanzaNull = new StanzaBloccata("Stanza1", Direzione.nord, null);
 		
 		for(int i = 0; i < elencoAttrezzi.length; i++) {
 			stanzaNull.addAttrezzo(elencoAttrezzi[i]);

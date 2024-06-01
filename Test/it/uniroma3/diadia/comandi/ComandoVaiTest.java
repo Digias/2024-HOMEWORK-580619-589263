@@ -23,16 +23,11 @@ public class ComandoVaiTest {
 
 	@Before
 	public void setUp() throws Exception {
-		io = new IOConsole();
+		io = new IOConsole(new Scanner(System.in));
 		s1 = new Stanza("aula 1");
 		s2 = new Stanza("aula 2");
 		vai = new ComandoVai();
-		labirinto = Labirinto.newBuilder()
-				.addStanzaIniziale("Atrio")
-				.addAttrezzo("martello", 3)
-				.addStanzaVincente("Biblioteca")
-				.addAdiacenza("Atrio", "Biblioteca", "nord")
-				.getLabirinto();
+		labirinto = Labirinto.newBuilder("labirinto2.txt").getLabirinto();
 		p = new Partita(labirinto);
 		vai.setIo(io);
 		righeDaLeggere = new ArrayList<>();
@@ -54,8 +49,8 @@ public class ComandoVaiTest {
 	@Test
 	public void testVaiDirezioneEsistente() {
 		p.setStanzaCorrente(s1);
-		s1.impostaStanzaAdiacente("sud-ovest", s2);
-		vai.setParametro("sud-ovest");
+		s1.impostaStanzaAdiacente(Direzione.sud, s2);
+		vai.setParametro("sud");
 		vai.esegui(p);
 		assertEquals(s2, p.getStanzaCorrente());
 	}
@@ -63,14 +58,14 @@ public class ComandoVaiTest {
 	@Test
 	public void testVaiDirezioneInesistente() {
 		p.setStanzaCorrente(s1);
-		s1.impostaStanzaAdiacente("sud-ovest", s2);
-		vai.setParametro("in fondo a destra");
+		s1.impostaStanzaAdiacente(Direzione.sud, s2);
+		vai.setParametro("nord");
 		vai.esegui(p);
 		assertNotEquals(s2, p.getStanzaCorrente());
 	}
 
 	@Test
-	public void testPartitaConComandoVai() {
+	public void testPartitaConComandoVai() throws Exception {
 		righeDaLeggere.add("vai nord");
 
 		IOSimulator io = Fixture.creaSimulazionePartitaEGiocaEasy(righeDaLeggere);
@@ -86,7 +81,7 @@ public class ComandoVaiTest {
 	
 	
 	@Test
-	public void testPartitaConComandoVaiOvest() {
+	public void testPartitaConComandoVaiOvest() throws Exception {
 		righeDaLeggere2.add("vai ovest");
 		righeDaLeggere2.add("fine");
 
@@ -100,7 +95,7 @@ public class ComandoVaiTest {
 	}
 	
 	@Test
-	public void testPartitaConComandoVaiOvestEst() {
+	public void testPartitaConComandoVaiOvestEst() throws Exception {
 		righeDaLeggere2.add("vai ovest");
 		righeDaLeggere2.add("vai est");
 		righeDaLeggere2.add("fine");

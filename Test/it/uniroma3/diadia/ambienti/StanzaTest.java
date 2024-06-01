@@ -5,11 +5,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.*;
 
 public class StanzaTest {
 	private Stanza stanza1;
 	private Attrezzo osso;
-	String[] direzioni = {"nord", "est", "ovest", "sud"};
+	Direzione[] direzioni = Direzione.values();
 
 	private Stanza[] sequenzaStanze(String... stanza) {
 		Stanza[] elencoStanze = new Stanza[stanza.length];
@@ -63,7 +64,7 @@ public class StanzaTest {
 	}
 
 	//ADD ATTREZZO
-	
+
 	public void testAddAttrezzo_pieno() {
 		Attrezzo[] elencoAttrezzi = this.sequenzaAttrezzi("a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "10");
 		for (int i = 0; i < elencoAttrezzi.length; i++)
@@ -160,5 +161,29 @@ public class StanzaTest {
 			this.stanza1.addAttrezzo(elencoAttrezzi[i]);
 		assertFalse(this.stanza1.isEmpty());
 	}
-	
+
+
+	//GET PERSONAGGIO
+	@Test
+	public void testGetPersonaggio_null() {
+		assertNull(this.stanza1.getPersonaggio());
+	}
+
+	@Test
+	public void testGetPersonaggio_strega() {
+		this.stanza1.setPersonaggio(new Strega("Befana","HIHIHI" ));
+		assertEquals(new Strega("Befana","HIHIHI" ), this.stanza1.getPersonaggio());
+	}
+
+	@Test
+	public void testGetPersonaggio_mago() {
+		this.stanza1.setPersonaggio(new Mago("Merlino","SBEM" , new Attrezzo("bacchetta", 2)));
+		assertEquals(new Mago("Merlino","SBEM" , new Attrezzo("bacchetta", 2)), this.stanza1.getPersonaggio());
+	}
+
+	@Test
+	public void testGetPersonaggio_cane() {
+		this.stanza1.setPersonaggio(new Cane("Fido","BAUBAU" ));
+		assertEquals(new Cane("Fido","BAUBAU" ), this.stanza1.getPersonaggio());
+	}
 }
